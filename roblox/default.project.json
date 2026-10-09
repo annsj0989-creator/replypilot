@@ -1,0 +1,14 @@
+{
+  "name": "StealAMonster",
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "MonsterGame": { "$path": "src/ServerScriptService/MonsterGame.server.luau" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "MonsterClient": { "$path": "src/StarterPlayerScripts/MonsterClient.client.luau" }
+      }
+    }
+  }
+}
