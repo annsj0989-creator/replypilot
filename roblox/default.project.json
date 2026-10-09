@@ -1,13 +1,16 @@
 {
-  "name": "StealAMonster",
+  "name": "NightShift",
   "tree": {
     "$className": "DataModel",
+    "ReplicatedStorage": {
+      "NightShift": { "$path": "src/ReplicatedStorage/NightShift" }
+    },
     "ServerScriptService": {
-      "MonsterGame": { "$path": "src/ServerScriptService/MonsterGame.server.luau" }
+      "NightShift": { "$path": "src/ServerScriptService/NightShift" }
     },
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "MonsterClient": { "$path": "src/StarterPlayerScripts/MonsterClient.client.luau" }
+        "NightShiftClient": { "$path": "src/StarterPlayerScripts/NightShiftClient.client.luau" }
       }
     }
   }
