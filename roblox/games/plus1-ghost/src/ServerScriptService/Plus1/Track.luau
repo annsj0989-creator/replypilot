@@ -20,7 +20,7 @@ local PALETTE = {
 	path = Color3.fromRGB(86, 82, 96),
 	stone = Color3.fromRGB(70, 66, 82),
 	rail = Color3.fromRGB(140, 255, 210),
-	lantern = Color3.fromRGB(255, 150, 70),
+	lantern = Color3.fromRGB(255, 185, 120),
 }
 
 local function part(props: { [string]: any }, parent: Instance?): Part
@@ -134,8 +134,8 @@ local function lanternLight(model: Instance, at: Vector3)
 	local holder = part({ Name = "LanternLight", Size = Vector3.new(0.5, 0.5, 0.5), Position = at, Transparency = 1, CanCollide = false, CanQuery = false }, model)
 	local l = Instance.new("PointLight")
 	l.Color = PALETTE.lantern
-	l.Range = 26
-	l.Brightness = 1.6
+	l.Range = 16
+	l.Brightness = 0.7
 	l.Shadows = false
 	l.Parent = holder
 end
@@ -158,7 +158,7 @@ local function decor(name: string, ground: Vector3, height: number, face: Vector
 		part({ Name = "Tomb", Size = Vector3.new(3, height, 1.2), Position = ground + Vector3.new(0, height / 2, 0), Color = PALETTE.stone, Material = Enum.Material.Slate })
 	elseif name == "LanternPost" then
 		part({ Name = "Post", Size = Vector3.new(0.6, height, 0.6), Position = ground + Vector3.new(0, height / 2, 0), Color = Color3.fromRGB(74, 51, 38) })
-		local lamp = part({ Name = "Lamp", Shape = Enum.PartType.Ball, Size = Vector3.new(1.8, 1.8, 1.8), Position = ground + Vector3.new(0, height, 0), Color = PALETTE.lantern, Material = Enum.Material.Neon })
+		local lamp = part({ Name = "Lamp", Shape = Enum.PartType.Ball, Size = Vector3.new(1.2, 1.2, 1.2), Position = ground + Vector3.new(0, height, 0), Color = PALETTE.lantern, Material = Enum.Material.Neon })
 		lanternLight(lamp, lamp.Position)
 	elseif name == "DeadTree" then
 		part({ Name = "Trunk", Size = Vector3.new(1.5, height, 1.5), Position = ground + Vector3.new(0, height / 2, 0), Color = Color3.fromRGB(58, 44, 40), Material = Enum.Material.Wood })
@@ -228,8 +228,6 @@ local function buildLobby()
 	spawn.Material = Enum.Material.Cobblestone
 	spawn.Duration = 0
 	spawn.Parent = folder
-	local ring = part({ Name = "SpawnRing", Shape = Enum.PartType.Cylinder, Size = Vector3.new(0.2, 16, 16), Position = Vector3.new(-120, 0.12, 0), Orientation = Vector3.new(0, 0, 90), Color = Color3.fromRGB(150, 110, 255), Material = Enum.Material.Neon, CanCollide = false, Transparency = 0.5 })
-	local _ = ring
 
 	-- 관 (오른쪽, 길을 바라봄)
 	for i, egg in ipairs(Config.EGGS) do
@@ -247,10 +245,10 @@ local function buildLobby()
 		end
 		local glow = Instance.new("PointLight")
 		glow.Color = ({ PALETTE.lantern, Color3.fromRGB(150, 255, 190), Color3.fromRGB(255, 220, 120) })[i]
-		glow.Range = 18
-		glow.Brightness = 1.4
+		glow.Range = 14
+		glow.Brightness = 0.8
 		glow.Parent = stand
-		label(stand, egg.name .. "\n🏆 " .. egg.cost .. " Wins", Color3.fromRGB(255, 240, 200), UDim2.fromOffset(200, 64), Vector3.new(0, 16, 0), 110)
+		label(stand, egg.name .. "\n🏆 " .. egg.cost .. " Wins", Color3.fromRGB(255, 240, 200), UDim2.fromOffset(150, 46), Vector3.new(0, 15, 0), 70)
 		table.insert(Track.eggs, { part = anchorPart, egg = egg })
 	end
 
@@ -281,16 +279,16 @@ local function buildLobby()
 	local moonLight = part({ Name = "RebirthLight", Size = Vector3.new(1, 1, 1), Position = statueGround + Vector3.new(4, 22, 0), Transparency = 1, CanCollide = false }, folder)
 	local pl = Instance.new("PointLight")
 	pl.Color = Color3.fromRGB(255, 225, 140)
-	pl.Range = 30
-	pl.Brightness = 2
+	pl.Range = 24
+	pl.Brightness = 1
 	pl.Parent = moonLight
 	label(moonLight, "🔁 REBIRTH", Color3.fromRGB(255, 230, 140), UDim2.fromOffset(220, 56), Vector3.new(0, 8, 0), 140)
 	Track.rebirthPart = statueAnchor
 
 	-- 로비 장식: 등불, 나무, 비석
-	for i = 0, 5 do
-		decor("LanternPost", Vector3.new(-140 + i * 26, 0, 10), 8, Vector3.new(0, 0, -1))
-		decor("LanternPost", Vector3.new(-140 + i * 26, 0, -10), 8, Vector3.new(0, 0, 1))
+	for i = 0, 3 do
+		decor("LanternPost", Vector3.new(-140 + i * 40, 0, 11), 8, Vector3.new(0, 0, -1))
+		decor("LanternPost", Vector3.new(-140 + i * 40, 0, -11), 8, Vector3.new(0, 0, 1))
 	end
 	local rng = Random.new(3)
 	for _ = 1, 14 do
@@ -383,8 +381,8 @@ function Track.makeGhost(): (number, number, boolean) -> ()
 		model = Instance.new("Model")
 		model.Name = "GhostChaser"
 		local h = Config.GHOST_HEIGHT
-		local body = part({ Name = "Body", Shape = Enum.PartType.Ball, Size = Vector3.new(h * 0.8, h * 0.8, h * 0.8), Position = Vector3.new(Track.GHOST_IDLE_X, h * 0.6, 0), Color = Color3.fromRGB(240, 246, 255), CanCollide = false }, model)
-		part({ Name = "Skirt", Shape = Enum.PartType.Cylinder, Size = Vector3.new(h * 0.5, h * 0.8, h * 0.8), Position = Vector3.new(Track.GHOST_IDLE_X, h * 0.3, 0), Orientation = Vector3.new(0, 0, 90), Color = Color3.fromRGB(240, 246, 255), CanCollide = false }, model)
+		local body = part({ Name = "Body", Shape = Enum.PartType.Ball, Size = Vector3.new(h * 0.8, h * 0.8, h * 0.8), Position = Vector3.new(Track.GHOST_IDLE_X, h * 0.6, 0), Color = Color3.fromRGB(200, 212, 232), CanCollide = false }, model)
+		part({ Name = "Skirt", Shape = Enum.PartType.Cylinder, Size = Vector3.new(h * 0.5, h * 0.8, h * 0.8), Position = Vector3.new(Track.GHOST_IDLE_X, h * 0.3, 0), Orientation = Vector3.new(0, 0, 90), Color = Color3.fromRGB(200, 212, 232), CanCollide = false }, model)
 		for _, side in ipairs({ -1, 1 }) do
 			part({ Name = "Eye", Shape = Enum.PartType.Ball, Size = Vector3.new(h * 0.08, h * 0.16, h * 0.12), Position = Vector3.new(Track.GHOST_IDLE_X + h * 0.38, h * 0.68, side * h * 0.12), Color = Color3.fromRGB(20, 18, 28), CanCollide = false }, model)
 		end
@@ -394,8 +392,8 @@ function Track.makeGhost(): (number, number, boolean) -> ()
 	local glowPart = model.PrimaryPart :: BasePart
 	local light = Instance.new("PointLight")
 	light.Color = Color3.fromRGB(190, 220, 255)
-	light.Range = 50
-	light.Brightness = 2.5
+	light.Range = 28
+	light.Brightness = 0.6
 	light.Parent = glowPart
 	for _, p in ipairs(model:GetDescendants()) do
 		if p:IsA("BasePart") then
