@@ -1,0 +1,17 @@
+{
+  "name": "NightShift",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "NightShift": { "$path": "src/ReplicatedStorage/NightShift" }
+    },
+    "ServerScriptService": {
+      "NightShift": { "$path": "src/ServerScriptService/NightShift" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "NightShiftClient": { "$path": "src/StarterPlayerScripts/NightShiftClient.client.luau" }
+      }
+    }
+  }
+}

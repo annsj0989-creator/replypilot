@@ -1,0 +1,17 @@
+{
+  "name": "Plus1GhostEscape",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Plus1": { "$path": "src/ReplicatedStorage/Plus1" }
+    },
+    "ServerScriptService": {
+      "Plus1": { "$path": "src/ServerScriptService/Plus1" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Plus1Client": { "$path": "src/StarterPlayerScripts/Plus1Client.client.luau" }
+      }
+    }
+  }
+}
