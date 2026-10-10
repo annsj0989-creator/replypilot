@@ -25,6 +25,10 @@ Config.GHOST_INTERVAL = 45 -- 몇 초마다 출발
 Config.GHOST_BASE_SPEED = 26
 Config.GHOST_SPEED_PER_ZONE = 22 -- 구역이 지날수록 빨라짐
 Config.GHOST_WARNING = 5 -- 출발 몇 초 전에 경고
+Config.GHOST_HEIGHT = 34
+
+-- 3D 에셋을 넣었는데 앞뒤가 반대로 서 있으면 180으로 바꾼다
+Config.ASSET_YAW_OFFSET = 0
 
 -- 러닝머신: 필요 Wins, 초당 속도
 Config.TREADMILLS = {

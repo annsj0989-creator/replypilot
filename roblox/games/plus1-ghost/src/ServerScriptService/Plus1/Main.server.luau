@@ -368,38 +368,48 @@ end)
 ---------------------------------------------------------------------
 -- 유령 파도
 ---------------------------------------------------------------------
-local ghost = Track.makeGhostWall()
-ghost.Transparency = 1
+local moveGhost = Track.makeGhost()
+local ghostRunning = false
 workspace:SetAttribute("GhostX", -1000)
 
+-- 대기 중엔 출발선 뒤에서 둥실둥실
 task.spawn(function()
+	while true do
+		if not ghostRunning then
+			moveGhost(Track.GHOST_IDLE_X, os.clock(), false)
+		end
+		task.wait(1 / 20)
+	end
+end)
+
+task.spawn(function()
+	local reach = Config.GHOST_HEIGHT * 0.35 -- 유령 몸 앞쪽까지 거리
 	while true do
 		task.wait(Config.GHOST_INTERVAL - Config.GHOST_WARNING)
 		notice(nil, "👻 GHOST WAVE", "Coming in " .. Config.GHOST_WARNING .. " seconds! RUN!", "danger")
 		task.wait(Config.GHOST_WARNING)
-		ghost.Transparency = 0.15
-		local x = -10
+		ghostRunning = true
+		local x = Track.GHOST_IDLE_X
 		local last = os.clock()
-		while x < Track.FINISH_X + 20 do
+		while x < Track.FINISH_X + 40 do
 			task.wait()
 			local now = os.clock()
 			local dt = now - last
 			last = now
 			local zone = math.max(1, Track.zoneAt(x))
 			x += (Config.GHOST_BASE_SPEED + (zone - 1) * Config.GHOST_SPEED_PER_ZONE) * dt
-			ghost.CFrame = CFrame.new(x, 22, 0)
-			workspace:SetAttribute("GhostX", x)
+			moveGhost(x, now, true)
+			workspace:SetAttribute("GhostX", x + reach)
 			for player in pairs(sessions) do
 				local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
-				if root and root.Position.X > 0 and root.Position.X < x + 7 and root.Position.X > x - 60 then
+				if root and root.Position.X > 0 and root.Position.X < x + reach and root.Position.X > x - 60 then
 					CaughtRemote:FireClient(player)
 					notice(player, "👻 Caught!", "Get faster and try again!", "danger")
 					sendToLobby(player)
 				end
 			end
 		end
-		ghost.Transparency = 1
-		ghost.CFrame = CFrame.new(-40, 22, 0)
+		ghostRunning = false
 		workspace:SetAttribute("GhostX", -1000)
 	end
 end)
