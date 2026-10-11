@@ -1,0 +1,5 @@
+std = "roblox"
+
+[lints]
+# Luau type annotations and `if ... then ... else` expressions are used throughout.
+shadowing = "allow"

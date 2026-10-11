@@ -1,0 +1,123 @@
+{
+  "name": "UnburyALostCity",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "Remotes": {
+        "$className": "Folder",
+        "DigRequest": { "$className": "RemoteEvent" },
+        "Notify": { "$className": "RemoteEvent" },
+        "DebugCommand": { "$className": "RemoteEvent" }
+      }
+    },
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$properties": {
+        "CameraMaxZoomDistance": 48,
+        "CameraMinZoomDistance": 4,
+        "CharacterWalkSpeed": 18,
+        "AutoJumpEnabled": true
+      },
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+
+    "Players": {
+      "$className": "Players",
+      "$properties": {
+        "CharacterAutoLoads": false,
+        "RespawnTime": 3
+      }
+    },
+
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "StreamingEnabled": true,
+        "StreamingMinRadius": 128,
+        "StreamingTargetRadius": 768
+      }
+    },
+
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Technology": "ShadowMap",
+        "ClockTime": 15.4,
+        "GeographicLatitude": 23,
+        "Brightness": 2.6,
+        "Ambient": [0.34, 0.28, 0.22],
+        "OutdoorAmbient": [0.56, 0.48, 0.4],
+        "ColorShift_Top": [1, 0.9, 0.75],
+        "EnvironmentDiffuseScale": 0.6,
+        "EnvironmentSpecularScale": 0.5,
+        "ExposureCompensation": 0.1,
+        "ShadowSoftness": 0.3,
+        "GlobalShadows": true
+      },
+      "Atmosphere": {
+        "$className": "Atmosphere",
+        "$properties": {
+          "Density": 0.32,
+          "Offset": 0.12,
+          "Color": [0.87, 0.75, 0.58],
+          "Decay": [0.66, 0.5, 0.36],
+          "Glare": 0.3,
+          "Haze": 1.6
+        }
+      },
+      "ColorCorrection": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Brightness": 0.02,
+          "Contrast": 0.08,
+          "Saturation": 0.12,
+          "TintColor": [1, 0.97, 0.92]
+        }
+      },
+      "Bloom": {
+        "$className": "BloomEffect",
+        "$properties": {
+          "Intensity": 0.35,
+          "Size": 22,
+          "Threshold": 1.6
+        }
+      },
+      "SunRays": {
+        "$className": "SunRaysEffect",
+        "$properties": {
+          "Intensity": 0.05,
+          "Spread": 0.6
+        }
+      }
+    },
+
+    "SoundService": {
+      "$className": "SoundService"
+    },
+
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "ArtifactTemplates": {
+        "$className": "Folder"
+      }
+    }
+  }
+}
